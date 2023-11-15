@@ -63,18 +63,18 @@ module "host-project" {
   Budget Project Creation
  *****************************************/
 
-#module "budget" {
-#source          = "terraform-google-modules/project-factory/google//modules/budget"
-#billing_account = var.billing_account
-#projects        = ["${module.host-project.project_id}", "${module.service-project.project_id}"]
-#display_name    = "${local.prefix}-${module.folders.name}"
-#amount          = "20"
-#alert_spent_percents = [
-#0.5,
-#0.7,
-#1
-#]
-#}
+module "budget" {
+source          = "terraform-google-modules/project-factory/google//modules/budget"
+billing_account = var.billing_account
+projects        = ["${module.host-project.project_id}", "${module.service-project.project_id}"]
+display_name    = "${local.prefix}-${module.folders.name}"
+amount          = "20"
+alert_spent_percents = [
+0.5,
+0.7,
+1
+]
+}
 
 /******************************************
   Network Creation
