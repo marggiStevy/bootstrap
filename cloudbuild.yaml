@@ -1,0 +1,64 @@
+steps:
+  - id: "[GIT] Branch Name"
+    name: "alpine"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        echo "***********************"
+        echo "$BRANCH_NAME"
+        echo "***********************"
+
+  - id: "[TERRAFORM] tf init"
+    name: "northamerica-northeast1-docker.pkg.dev/dav-training-lnx-34e2/docker-registry/terraform:1.6.2"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        if [ -d "live/prod" ]; then
+            cd live/prod
+            echo ""
+            echo "*************** TERRAFORM INIT ******************"
+            echo "*******       At environment: prod        ********"
+            echo "*************************************************"
+            terraform init || exit 1
+        else
+            echo "skip! you don't have prod env."
+        fi
+
+  - id: "[TERRAFORM] tf plan"
+    waitFor: ["[TERRAFORM] tf init"]
+    name: "northamerica-northeast1-docker.pkg.dev/dav-training-lnx-34e2/docker-registry/terraform:1.6.2"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        if [ -d "live/prod" ]; then
+            cd live/prod
+            echo ""
+            echo "*************** TERRAFORM PLAN ******************"
+            echo "*******       At environment: prod        ********"
+            echo "*************************************************"
+            terraform plan || exit 1
+        else
+              echo "skip! you don't have prod env."
+        fi
+
+  - id: "[TERRAFORM] tf apply"
+    waitFor: ["[TERRAFORM] tf plan"]
+    name: "northamerica-northeast1-docker.pkg.dev/dav-training-lnx-34e2/docker-registry/terraform:1.6.2"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        if [ $BRANCH_NAME = "main" ]; then
+          cd live/prod
+              echo "*************** TERRAFORM APPLY ******************"
+              echo "*******       At environment: prod        ********"
+              echo "*************************************************"
+          terraform apply -auto-approve
+        else
+              echo "***************************** SKIPPING APPLYING *******************************"
+              echo "In order to apply you have to push changes to main branch"
+              echo "*******************************************************************************"
+        fi
