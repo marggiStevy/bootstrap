@@ -19,7 +19,7 @@ steps:
             cd live/prod
             echo ""
             echo "*************** TERRAFORM INIT ******************"
-            echo "*******       At environment: prod        ********"
+            echo "*******       At environment: prod       ********"
             echo "*************************************************"
             terraform init || exit 1
         else
@@ -37,7 +37,7 @@ steps:
             cd live/prod
             echo ""
             echo "*************** TERRAFORM PLAN ******************"
-            echo "*******       At environment: prod        ********"
+            echo "*******       At environment: prod       ********"
             echo "*************************************************"
             terraform plan || exit 1
         else
@@ -55,7 +55,7 @@ steps:
           cd live/prod
               echo "*************** TERRAFORM APPLY ******************"
               echo "*******       At environment: prod        ********"
-              echo "*************************************************"
+              echo "**************************************************"
           terraform apply -auto-approve
         else
               echo "***************************** SKIPPING APPLYING *******************************"
