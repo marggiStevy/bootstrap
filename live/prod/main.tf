@@ -1,6 +1,6 @@
 locals {
   subnet_01     = "${var.network_name}-sub-01"
-  prefix        = "bc"
+  prefix        = "sm"
   cloudbuild_sa = format("%s@cloudbuild.gserviceaccount.com", module.service-project.project_number, )
 
 }
@@ -14,11 +14,11 @@ module "folders" {
   version = "~> 4.0"
 
   parent    = var.parent
-  names     = ["bcoutellier"]
+  names     = ["smarggi"]
   set_roles = true
   all_folder_admins = [
     "group:gcp-devops@davidson.group",
-    "user:benjamin.coutellier@davidson.group"
+    "user:stevy.marggi@davidson.group"
   ]
 }
 
