@@ -15,7 +15,8 @@ folder_admin_roles = [
   "roles/compute.networkAdmin",
   "roles/serviceusage.serviceUsageConsumer",
   "roles/cloudsql.admin",
-  "roles/run.admin"
+  "roles/run.admin",
+  "roles/resourcemanager.projectIamAdmin",
 ]
 
 cloudbuild_roles = [
