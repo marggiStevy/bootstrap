@@ -55,10 +55,29 @@ module "host-project" {
     "compute.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "billingbudgets.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
     "cloudbuild.googleapis.com",
-    "run.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "container.googleapis.com",
+    "storage-api.googleapis.com",
+    "osconfig.googleapis.com",
+    "serviceusage.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "stackdriver.googleapis.com",
+    "logging.googleapis.com",
+    "secretmanager.googleapis.com",
+    "clouderrorreporting.googleapis.com",
+    "iam.googleapis.com",
+    "containeranalysis.googleapis.com",
+    "storage-component.googleapis.com",
+    "containerregistry.googleapis.com",
+    "sourcerepo.googleapis.com",
+    "oslogin.googleapis.com",
+    "recommender.googleapis.com",
+    "monitoring.googleapis.com",
+    "cloudtrace.googleapis.com",
+    "iap.googleapis.com",
+    "sts.googleapis.com",
+    "sql-component.googleapis.com",
+    "sqladmin.googleapis.com"
   ]
 
 }
