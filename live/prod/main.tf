@@ -2,7 +2,7 @@ locals {
   subnet_01     = "${var.network_name}-sub-01"
   prefix        = "sm"
   cloudbuild_sa = format("%s@cloudbuild.gserviceaccount.com", module.service-project.project_number, )
-
+  crun_sa       = format("service-%s@serverless-robot-prod.iam.gserviceaccount.com", module.service-project.project_number, )
 }
 
 /******************************************
@@ -53,6 +53,7 @@ module "host-project" {
 
   activate_apis = [
     "compute.googleapis.com",
+    "run.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "billingbudgets.googleapis.com",
     "cloudbuild.googleapis.com",
@@ -222,4 +223,18 @@ resource "google_organization_iam_member" "binding" {
   org_id = var.organization_id
   role   = each.value
   member = "serviceAccount:${local.cloudbuild_sa}"
+}
+
+resource "google_project_iam_member" "crun_sac_network" {
+  project = module.host-project.project_id
+  role    = "roles/compute.networkUser"
+  member  = "serviceAccount:${local.crun_sa}"
+}
+
+resource "google_compute_subnetwork_iam_member" "member" {
+  project    = module.host-project.project_id
+  region     = var.region
+  subnetwork = element(module.vpc.subnets_names, 0)
+  role       = "roles/compute.networkUser"
+  member     = "serviceAccount:${local.crun_sa}"
 }
