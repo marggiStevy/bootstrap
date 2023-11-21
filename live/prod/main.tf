@@ -16,10 +16,12 @@ module "folders" {
   parent    = var.parent
   names     = ["smarggi"]
   set_roles = true
-  all_folder_admins = [
-    "group:gcp-devops@davidson.group",
-    "user:stevy.marggi@davidson.group"
-  ]
+  per_folder_admins = {
+    "smarggi" = {
+      members = ["user:stevy.marggi@davidson.group"]
+      roles   = var.folder_admin_roles
+    }
+  }
 }
 
 /******************************************
