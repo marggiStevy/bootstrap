@@ -54,7 +54,8 @@ module "host-project" {
     "cloudresourcemanager.googleapis.com",
     "billingbudgets.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "cloudbuild.googleapis.com"
+    "cloudbuild.googleapis.com",
+    "run.googleapis.com"
   ]
 
 }
